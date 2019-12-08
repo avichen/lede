@@ -59,20 +59,6 @@ jobs:
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
 
-      - name: Clone source code
-        env: 
-          REPO_URL: https://github.com/coolsnowwolf/lede
-          REPO_BRANCH: master
-        run: git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
-
-      - name: Clone extra luci source code
-        run: |
-          git clone https://github.com/honwen/luci-app-aliddns openwrt/package/luci-app-aliddns
-          git clone https://github.com/zxlhhyccc/luci-app-serverchan openwrt/package/luci-app-serverchan
-          git clone https://github.com/siryle1213/luci-app-fileassistant openwrt/package/luci-app-fileassistant
-          git clone https://github.com/Kinodi/luci-theme-atmaterial openwrt/package/luci-theme-atmaterial
-          git clone https://github.com/jerrykuku/luci-theme-argon openwrt/package/luci-theme-argon
-
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
@@ -124,11 +110,25 @@ jobs:
           # EOF
           
           # 编译ar71xx固件:
+          # cat >> .config <<EOF
+          # CONFIG_TARGET_ar71xx=y
+          # CONFIG_TARGET_ar71xx-ath79=y
+          # CONFIG_TARGET_ar71xx-ath79_generic=y
+          # EOF
+
+          # 编译ar71xx-generic_wndrmacv2固件:
           cat >> .config <<EOF
           CONFIG_TARGET_ar71xx=y
           CONFIG_TARGET_ar71xx-generic=y
           CONFIG_TARGET_ar71xx-generic_wndrmacv2=y
           EOF
+
+          # 编译ar71xx-generic_wndrmacv2固件:
+          # cat >> .config <<EOF
+          # CONFIG_TARGET_bcm53xx=y
+          # CONFIG_TARGET_bcm53xx-generic=y
+          # CONFIG_TARGET_ar71xx-generic_tenda_ac9=y
+          # EOF
 
           # 固件压缩:
           cat >> .config <<EOF
@@ -166,47 +166,47 @@ jobs:
           # EOF
 
           # 常用LuCI插件选择:
-          cat >> .config <<EOF
-          CONFIG_PACKAGE_luci-app-adbyby-plus=y
-          CONFIG_PACKAGE_luci-app-aria2=y
-          CONFIG_PACKAGE_luci-app-baidupcs-web=y
-          CONFIG_PACKAGE_luci-app-docker=y
-          CONFIG_PACKAGE_luci-app-frpc=y
-          CONFIG_PACKAGE_luci-app-hd-idle=y
-          CONFIG_PACKAGE_luci-app-kodexplorer=y
-          CONFIG_PACKAGE_luci-app-minidlna=y
-          CONFIG_PACKAGE_luci-app-openvpn=y
-          CONFIG_PACKAGE_luci-app-openvpn-server=y
-          CONFIG_PACKAGE_luci-app-qbittorrent=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
-          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
-          CONFIG_PACKAGE_luci-app-ttyd=y
-          CONFIG_PACKAGE_luci-app-v2ray-server=y
-          CONFIG_PACKAGE_luci-app-verysync=y
-          CONFIG_PACKAGE_luci-app-webadmin=y
-          CONFIG_PACKAGE_luci-app-wireguard=y
-          CONFIG_PACKAGE_luci-app-wrtbwmon=y
-          EOF
+          #cat >> .config <<EOF
+          #CONFIG_PACKAGE_luci-app-adbyby-plus=y
+          #CONFIG_PACKAGE_luci-app-aria2=y
+          #CONFIG_PACKAGE_luci-app-baidupcs-web=y
+          #CONFIG_PACKAGE_luci-app-docker=y
+          #CONFIG_PACKAGE_luci-app-frpc=y
+          #CONFIG_PACKAGE_luci-app-hd-idle=y
+          #CONFIG_PACKAGE_luci-app-kodexplorer=y
+          #CONFIG_PACKAGE_luci-app-minidlna=y
+          #CONFIG_PACKAGE_luci-app-openvpn=y
+          #CONFIG_PACKAGE_luci-app-openvpn-server=y
+          #CONFIG_PACKAGE_luci-app-qbittorrent=y
+          #CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
+          #CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
+          #CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
+          #CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
+          #CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
+          #CONFIG_PACKAGE_luci-app-ttyd=y
+          #CONFIG_PACKAGE_luci-app-v2ray-server=y
+          #CONFIG_PACKAGE_luci-app-verysync=y
+          #CONFIG_PACKAGE_luci-app-webadmin=y
+          #CONFIG_PACKAGE_luci-app-wireguard=y
+          #CONFIG_PACKAGE_luci-app-wrtbwmon=y
+          #EOF
 
           # LuCI主题:
-          cat >> .config <<EOF
-          CONFIG_PACKAGE_luci-theme-argon=y
-          CONFIG_PACKAGE_luci-theme-netgear=y
-          EOF
+          #cat >> .config <<EOF
+          #CONFIG_PACKAGE_luci-theme-argon=y
+          #CONFIG_PACKAGE_luci-theme-netgear=y
+          #EOF
 
           # 常用软件包:
-          cat >> .config <<EOF
-          CONFIG_PACKAGE_curl=y
-          CONFIG_PACKAGE_htop=y
+          #cat >> .config <<EOF
+          #CONFIG_PACKAGE_curl=y
+          #CONFIG_PACKAGE_htop=y
           # CONFIG_PACKAGE_nano=y
           # CONFIG_PACKAGE_screen=y
           # CONFIG_PACKAGE_tree=y
           # CONFIG_PACKAGE_vim-fuller=y
-          CONFIG_PACKAGE_wget=y
-          EOF
+          #CONFIG_PACKAGE_wget=y
+          #EOF
 
           # 取消编译VMware镜像以及镜像填充 (不要删除被缩进的注释符号):
           # cat >> .config <<EOF
@@ -237,7 +237,7 @@ jobs:
           rm -rf ./artifact/
           mkdir -p ./artifact/
           find ./bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
-          find ./bin/targets/ -name "*efi*img*" | xargs -i mv -f {} ./artifact/
+          #find ./bin/targets/ -name "*efi*img*" | xargs -i mv -f {} ./artifact/
           find ./bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
 
       - name: Upload artifact
