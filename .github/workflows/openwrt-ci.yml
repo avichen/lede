@@ -8,8 +8,8 @@
 name: Build OpenWrt
 
 on: 
-  release:
-    types: [published]
+  # release:
+  #  types: [published]
   push:
     branches: 
       - master
@@ -20,7 +20,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
@@ -69,15 +69,14 @@ jobs:
         git clone https://github.com/jerrykuku/luci-theme-argon openwrt/package/luci-theme-argon
 
     - name: Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
-
-    - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
+      run: |
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
 
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        cd openwrt
+        # cd openwrt
         rm -f ./.config*
         touch ./.config
         #
@@ -231,26 +230,27 @@ jobs:
 
     - name: Download package
       run: |
-        cd openwrt && make download -j8
+        make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
     - name: Build
       run: |
-        cd openwrt
+        # cd openwrt
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=s
 
     - name: Assemble artifact
       run: |
-        cd openwrt
+        # cd openwrt
         rm -rf ./artifact/
         mkdir -p ./artifact/
         find ./bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
+        find ./bin/targets/ -name "*efi*img*" | xargs -i mv -f {} ./artifact/
         find ./bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
         
     - name: Upload artifact
       uses: actions/upload-artifact@master
       with:
         name: OpenWrt firmware
-        path: ./openwrt/artifact/
+        path: ./artifact/
