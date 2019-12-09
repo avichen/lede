@@ -120,7 +120,8 @@ jobs:
           cat >> .config <<EOF
           CONFIG_TARGET_ar71xx=y
           CONFIG_TARGET_ar71xx-generic=y
-          CONFIG_TARGET_ar71xx-generic_wndrmacv2=y
+          CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndrmacv2=y
+          #CONFIG_TARGET_ar71xx-generic_wndrmacv2=y
           EOF
 
           # 编译ar71xx-generic_wndrmacv2固件:
