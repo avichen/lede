@@ -117,20 +117,22 @@ jobs:
           # EOF
 
           # 编译ar71xx-generic_wndrmacv2固件:
-          cat >> .config <<EOF
-          CONFIG_TARGET_ar71xx=y
-          CONFIG_TARGET_ar71xx-generic=y
-          CONFIG_TARGET_MULTI_PROFILE=y
-          CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndrmacv2=y
-          CONFIG_TARGET_DEVICE_PACKAGES_ar71xx_generic_DEVICE_wndrmacv2=""
+          #cat >> .config <<EOF
+          #CONFIG_TARGET_ar71xx=y
+          #CONFIG_TARGET_ar71xx-generic=y
+          #CONFIG_TARGET_MULTI_PROFILE=y
+          #CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndrmacv2=y
+          #CONFIG_TARGET_DEVICE_PACKAGES_ar71xx_generic_DEVICE_wndrmacv2=""
           #CONFIG_TARGET_ar71xx-generic_wndrmacv2=y
-          EOF
+          #EOF
 
-          # 编译ar71xx-generic_wndrmacv2固件:
-          # cat >> .config <<EOF
-          # CONFIG_TARGET_bcm53xx=y
-          # CONFIG_TARGET_bcm53xx-generic=y
-          # CONFIG_TARGET_ar71xx-generic_tenda_ac9=y
+          # 编译bcm53xx-generic-tenda-ac9固件:
+          cat >> .config <<EOF
+          CONFIG_TARGET_bcm53xx=y
+          CONFIG_TARGET_MULTI_PROFILE=y
+          # CONFIG_TARGET_ALL_PROFILES=y
+          CONFIG_TARGET_DEVICE_bcm53xx_DEVICE_tenda-ac9=y
+          CONFIG_TARGET_DEVICE_PACKAGES_bcm53xx_DEVICE_tenda-ac9=""
           # EOF
 
           # 固件压缩:
