@@ -127,10 +127,8 @@ jobs:
           # 编译bcm53xx-generic-tenda-ac9固件:
           cat >> .config <<EOF
           CONFIG_TARGET_bcm53xx=y
-          CONFIG_TARGET_MULTI_PROFILE=y
-          CONFIG_TARGET_ALL_PROFILES=y
-          CONFIG_TARGET_DEVICE_bcm53xx_DEVICE_tenda-ac9=y
-          CONFIG_TARGET_DEVICE_PACKAGES_bcm53xx_DEVICE_tenda-ac9=""
+          CONFIG_TARGET_bcm53xx_DEVICE_tenda-ac9=y
+          CONFIG_TARGET_BOARD="bcm53xx"
           EOF
 
           # 固件压缩:
