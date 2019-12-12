@@ -116,13 +116,13 @@ jobs:
           # EOF
 
           # 编译ar71xx-generic_wndrmacv2固件:
-          #cat >> .config <<EOF
-          #CONFIG_TARGET_ar71xx=y
-          #CONFIG_TARGET_ar71xx-generic=y
-          #CONFIG_TARGET_MULTI_PROFILE=y
-          #CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndrmacv2=y
-          #CONFIG_TARGET_DEVICE_PACKAGES_ar71xx_generic_DEVICE_wndrmacv2=""
-          #EOF
+          cat >> .config <<EOF
+          CONFIG_TARGET_ar71xx=y
+          CONFIG_TARGET_ar71xx-generic=y
+          CONFIG_TARGET_MULTI_PROFILE=y
+          CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndrmacv2=y
+          CONFIG_TARGET_DEVICE_PACKAGES_ar71xx_generic_DEVICE_wndrmacv2=""
+          EOF
 
           # 编译bcm53xx-generic-tenda-ac9固件:
           #cat >> .config <<EOF
@@ -134,13 +134,13 @@ jobs:
           #EOF
           
           # 编译新路由3 D2固件
-          cat >> .config <<EOF
+          #cat >> .config <<EOF
           #CONFIG_TARGET_ramips=y
-          CONFIG_TARGET_ramips_mt7621=y
+          #CONFIG_TARGET_ramips_mt7621=y
           #CONFIG_TARGET_MULTI_PROFILE=y
-          CONFIG_TARGET_DEVICE_ramips_mt7621_DEVICE_d-team_newifi-d2=y
-          CONFIG_TARGET_DEVICE_PACKAGES_ramips_mt7621_DEVICE_d-team_newifi-d2=""
-          EOF
+          #CONFIG_TARGET_DEVICE_ramips_mt7621_DEVICE_d-team_newifi-d2=y
+          #CONFIG_TARGET_DEVICE_PACKAGES_ramips_mt7621_DEVICE_d-team_newifi-d2=""
+          #EOF
 
           # 固件压缩:
           cat >> .config <<EOF
@@ -178,8 +178,8 @@ jobs:
           # EOF
 
           # 常用LuCI插件选择:
-          #cat >> .config <<EOF
-          #CONFIG_PACKAGE_luci-app-adbyby-plus=y
+          cat >> .config <<EOF
+          CONFIG_PACKAGE_luci-app-adbyby-plus=y
           #CONFIG_PACKAGE_luci-app-aria2=y
           #CONFIG_PACKAGE_luci-app-baidupcs-web=y
           #CONFIG_PACKAGE_luci-app-docker=y
@@ -190,19 +190,24 @@ jobs:
           #CONFIG_PACKAGE_luci-app-openvpn=y
           #CONFIG_PACKAGE_luci-app-openvpn-server=y
           #CONFIG_PACKAGE_luci-app-qbittorrent=y
-          #CONFIG_PACKAGE_luci-app-ssr-plus=y
+          CONFIG_PACKAGE_luci-app-ssr-plus=y
           #CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
-          #CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
           #CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
           #CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
-          #CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
           #CONFIG_PACKAGE_luci-app-ttyd=y
           #CONFIG_PACKAGE_luci-app-v2ray-server=y
           #CONFIG_PACKAGE_luci-app-verysync=y
-          #CONFIG_PACKAGE_luci-app-webadmin=y
-          #CONFIG_PACKAGE_luci-app-wireguard=y
+          CONFIG_PACKAGE_luci-app-webadmin=y
+          CONFIG_PACKAGE_luci-app-wireguard=y
           #CONFIG_PACKAGE_luci-app-wrtbwmon=y
-          #EOF
+          CONFIG_PACKAGE_luci-app-syncdial=y
+          CONFIG_PACKAGE_luci-app-mwan3=y
+          CONFIG_PACKAGE_luci-app-mwan3helper=y
+          #CONFIG_PACKAGE_kmod-macvlan
+          CONFIG_PACKAGE_luci-app-nlbwmon=y
+          EOF
 
           # LuCI主题:
           cat >> .config <<EOF
