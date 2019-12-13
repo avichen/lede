@@ -116,13 +116,13 @@ jobs:
           # EOF
 
           # 编译ar71xx-generic_wndrmacv2固件:
-          #cat >> .config <<EOF
-          #CONFIG_TARGET_ar71xx=y
-          #CONFIG_TARGET_ar71xx-generic=y
-          #CONFIG_TARGET_MULTI_PROFILE=y
-          #CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndrmacv2=y
-          #CONFIG_TARGET_DEVICE_PACKAGES_ar71xx_generic_DEVICE_wndrmacv2=""
-          #EOF
+          cat >> .config <<EOF
+          CONFIG_TARGET_ar71xx=y
+          CONFIG_TARGET_ar71xx-generic=y
+          CONFIG_TARGET_MULTI_PROFILE=y
+          CONFIG_TARGET_DEVICE_ar71xx_generic_DEVICE_wndrmacv2=y
+          CONFIG_TARGET_DEVICE_PACKAGES_ar71xx_generic_DEVICE_wndrmacv2=""
+          EOF
 
           # 编译bcm53xx-generic-tenda-ac9固件:
           #cat >> .config <<EOF
@@ -143,11 +143,11 @@ jobs:
           #EOF
           
           # 编译树莓派3B固件
-          cat >> .config <<EOF
-          CONFIG_TARGET_brcm2708=y
-          CONFIG_TARGET_brcm2708_bcm2710=y
-          CONFIG_TARGET_brcm2708_bcm2710_DEVICE_rpi-3=y
-          EOF
+          #cat >> .config <<EOF
+          #CONFIG_TARGET_brcm2708=y
+          #CONFIG_TARGET_brcm2708_bcm2710=y
+          #CONFIG_TARGET_brcm2708_bcm2710_DEVICE_rpi-3=y
+          #EOF
 
           # 固件压缩:
           cat >> .config <<EOF
